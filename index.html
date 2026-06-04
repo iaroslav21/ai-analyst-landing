@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="AI Analyst — transformă documente și conversații în rezumate, rapoarte și insight-uri utile.">
+  <meta name="theme-color" content="#06080c">
+  <meta property="og:title" content="AI Analyst">
+  <meta property="og:description" content="AI care lucrează cu informația în locul tău.">
+  <meta property="og:type" content="website">
+  <title>AI Analyst — Asistent AI pentru analiza informației</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='40' fill='%233d8bff'/></svg>">
+</head>
+<body>
+  <div class="glow" id="glow" aria-hidden="true"></div>
+
+  <nav id="nav">
+    <a href="#" class="logo" aria-label="AI Analyst home">
+      <span class="logo-dot"></span> AI Analyst
+    </a>
+    <ul class="nav-mid">
+      <li><a href="#problema" data-i18n="nav.problem">Problema</a></li>
+      <li><a href="#solutie" data-i18n="nav.solution">Soluția</a></li>
+      <li><a href="#cum" data-i18n="nav.how">Cum funcționează</a></li>
+      <li><a href="#features" data-i18n="nav.features">Funcționalități</a></li>
+      <li><a href="#demo" data-i18n="nav.demo">Demonstrație</a></li>
+      <li><a href="#audience" data-i18n="nav.audience">Pentru cine</a></li>
+      <li><a href="#preturi" data-i18n="nav.pricing">Prețuri</a></li>
+      <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
+    </ul>
+    <div class="nav-right">
+      <div class="lang-switch" role="group" aria-label="Language">
+        <button type="button" class="lang-btn active" data-lang="ro" aria-pressed="true">RO</button>
+        <button type="button" class="lang-btn" data-lang="ru" aria-pressed="false">RU</button>
+        <button type="button" class="lang-btn" data-lang="en" aria-pressed="false">EN</button>
+      </div>
+      <button type="button" class="btn-nav" data-open-modal data-i18n="nav.cta">Încearcă acum</button>
+      <button type="button" class="menu-toggle" id="menuToggle" aria-label="Menu">☰</button>
+    </div>
+  </nav>
+
+  <header class="hero" id="top">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <div class="hero-inner">
+      <div class="badge">
+        <span class="logo-dot" style="width:6px;height:6px"></span>
+        <span data-i18n="hero.badge">AI Research Assistant</span>
+      </div>
+      <h1 data-i18n="hero.title" data-i18n-html>Transformă mii de documente și mesaje în <em>informații utile</em> în doar câteva minute.</h1>
+      <p class="hero-sub" data-i18n="hero.sub">Încarcă documente, PDF-uri sau conversații, iar AI-ul le analizează automat.</p>
+      <div class="hero-actions">
+        <button type="button" class="btn-primary" data-open-modal data-i18n="hero.cta1">Încearcă acum</button>
+        <a href="#demo" class="btn-ghost" data-i18n="hero.cta2">Vezi demonstrația →</a>
+      </div>
+
+      <div class="pipeline" aria-label="Product workflow">
+        <div class="pipeline-bar">
+          <span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span>
+          <span style="margin-left:8px" data-i18n="pipeline.title">AI Analyst — spațiu de lucru</span>
+        </div>
+        <div class="pipeline-body">
+          <div class="pipe-col">
+            <div class="pipe-label" data-i18n="pipeline.input">Intrare</div>
+            <div id="pipelineFiles"></div>
+          </div>
+          <div class="pipe-mid">
+            <div class="orb" aria-hidden="true">✦</div>
+            <span style="font-size:.62rem;color:var(--accent);text-transform:uppercase;letter-spacing:.08em" data-i18n="pipeline.process">Procesare AI</span>
+          </div>
+          <div class="pipe-col">
+            <div class="pipe-label" data-i18n="pipeline.output">Rezultate</div>
+            <div id="pipelineOutputs"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section id="problema">
+      <div class="container">
+        <div class="section-tag reveal" data-i18n="problem.tag">Problema</div>
+        <h2 class="reveal" data-i18n="problem.title">Prea multă informație. Prea puțin timp.</h2>
+        <div class="grid-3" id="problemGrid"></div>
+      </div>
+    </section>
+
+    <div class="solution-wrap" id="solutie">
+      <div class="container">
+        <div class="section-tag reveal" data-i18n="solution.tag">Soluția</div>
+        <h2 class="reveal" data-i18n="solution.title">Lasă AI-ul să facă munca grea.</h2>
+        <p class="solution-desc reveal" data-i18n="solution.desc">Serviciul analizează automat datele...</p>
+        <div class="ba-grid reveal">
+          <div class="ba-box before">
+            <h3 id="beforeTitle">Înainte</h3>
+            <ul id="beforeList"></ul>
+          </div>
+          <div class="ba-arrow" aria-hidden="true">→</div>
+          <div class="ba-box after">
+            <h3 id="afterTitle">După</h3>
+            <ul id="afterList"></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section id="cum">
+      <div class="container">
+        <div class="section-tag reveal" data-i18n="how.tag">Proces</div>
+        <h2 class="reveal" data-i18n="how.title">Cum funcționează</h2>
+        <div class="steps" id="stepsRow"></div>
+      </div>
+    </section>
+
+    <section id="features">
+      <div class="container">
+        <div class="section-tag reveal" data-i18n="features.tag">Funcționalități</div>
+        <h2 class="reveal" data-i18n="features.title">Tot ce ai nevoie</h2>
+        <div class="grid-3" id="featuresGrid"></div>
+      </div>
+    </section>
+
+    <section id="demo" class="demo-section">
+      <div class="container">
+        <div class="section-tag reveal" data-i18n="demo.tag">Demonstrație</div>
+        <h2 class="reveal" data-i18n="demo.title">De la date brute la rezultate utile</h2>
+        <p class="reveal" style="color:var(--muted);font-size:.92rem" data-i18n="demo.subtitle">Apasă Analizează...</p>
+
+        <div class="demo-panel reveal">
+          <div class="demo-header">
+            <div>
+              <strong data-i18n="demo.inputLabel">Input</strong>:
+              <span data-i18n="demo.inputValue">5.000 mesaje Telegram</span>
+              <span style="color:var(--muted);font-size:.82rem"> — <span data-i18n="demo.inputDesc">export brut</span></span>
+            </div>
+            <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap">
+              <div class="demo-status" id="demoStatus"></div>
+              <button type="button" class="demo-run" id="runDemoBtn" data-i18n="demo.run">Analizează acum</button>
+            </div>
+          </div>
+          <div class="demo-grid">
+            <div class="demo-metric">
+              <div class="num" id="processedCount">—</div>
+              <div class="lbl" data-i18n="demo.outputLabel">Procesate</div>
+            </div>
+            <div class="demo-cards">
+              <div class="demo-card"><h4 data-i18n="demo.cards.q">Top întrebări</h4><p id="outQ">—</p></div>
+              <div class="demo-card"><h4 data-i18n="demo.cards.issues">Probleme</h4><p id="outIssues">—</p></div>
+              <div class="demo-card"><h4 data-i18n="demo.cards.summary">Rezumat</h4><p id="outSummary">—</p></div>
+              <div class="demo-card"><h4 data-i18n="demo.cards.faq">FAQ</h4><p id="outFaq">—</p></div>
+              <div class="demo-card" style="grid-column:1/-1"><h4 data-i18n="demo.cards.sentiment">Sentiment</h4><p id="outSentiment">—</p></div>
+            </div>
+          </div>
+          <ul id="demoOutputList" style="display:none"></ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="audience">
+      <div class="container" style="text-align:center">
+        <div class="section-tag reveal" style="justify-content:center" data-i18n="audience.tag">Public țintă</div>
+        <h2 class="reveal" data-i18n="audience.title">Creat pentru cei care lucrează cu multă informație</h2>
+        <div class="audience-tags reveal" id="audienceTags"></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container" style="text-align:center">
+        <div class="section-tag reveal" style="justify-content:center" data-i18n="benefits.tag">Beneficii</div>
+        <h2 class="reveal" data-i18n="benefits.title">De ce echipele aleg AI Analyst</h2>
+        <div class="benefits-row reveal" id="benefitsRow"></div>
+      </div>
+    </section>
+
+    <section id="preturi" style="background:var(--surface);border-block:1px solid var(--border)">
+      <div class="container">
+        <div class="section-tag reveal" data-i18n="pricing.tag">Prețuri</div>
+        <h2 class="reveal" data-i18n="pricing.title">Abonamente accesibile</h2>
+        <p class="reveal pricing-sub" data-i18n="pricing.subtitle" style="color:var(--muted);max-width:560px;margin:-1rem 0 2rem;font-size:.95rem"></p>
+        <div class="pricing-grid reveal" id="pricingGrid"></div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container">
+        <div class="section-tag reveal" data-i18n="contact.tag">Contact</div>
+        <h2 class="reveal" data-i18n="contact.title">Suntem aici să te ajutăm</h2>
+        <p class="reveal" style="color:var(--muted);margin-bottom:2rem" data-i18n="contact.subtitle"></p>
+        <div class="contact-grid reveal">
+          <a href="tel:+37360833229" class="contact-card">
+            <span class="contact-icon">📞</span>
+            <span class="contact-label" data-i18n="contact.phoneLabel">Telefon</span>
+            <strong data-i18n="contact.phone">060 833 229</strong>
+            <span class="contact-hint" data-i18n="contact.callHint">Apel local Moldova</span>
+          </a>
+          <a href="mailto:meroowiiwii@gmail.com" class="contact-card">
+            <span class="contact-icon">✉️</span>
+            <span class="contact-label" data-i18n="contact.emailLabel">Email</span>
+            <strong>meroowiiwii@gmail.com</strong>
+          </a>
+          <div class="contact-card static">
+            <span class="contact-icon">📍</span>
+            <span class="contact-label" data-i18n="contact.addressLabel">Adresă</span>
+            <strong data-i18n="contact.address">str. Decebal 6, Chișinău, Moldova</strong>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="trust-section">
+      <div class="container">
+        <div class="section-tag reveal" data-i18n="proof.tag">Încredere</div>
+        <div class="stats-row reveal" id="statsRow"></div>
+        <div class="testimonials reveal" id="testimonialsGrid"></div>
+        <div class="logos-row reveal" id="logosRow"></div>
+      </div>
+    </section>
+
+    <section class="cta-final">
+      <div class="container reveal">
+        <h2 data-i18n="cta.title">Nu mai pierde ore întregi căutând informații.</h2>
+        <p class="cta-sub" data-i18n="cta.sub">Lasă AI-ul să organizeze totul pentru tine.</p>
+        <button type="button" class="btn-primary" data-open-modal data-i18n="cta.btn">Începe acum</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <a href="#" class="logo"><span class="logo-dot"></span> AI Analyst</a>
+          <p class="footer-desc" data-i18n="footer.desc">AI care lucrează cu informația în locul tău.</p>
+        </div>
+        <div class="footer-col">
+          <h4 data-i18n="footer.product">Produs</h4>
+          <ul>
+            <li><a href="#features" data-i18n="footer.links.features">Funcționalități</a></li>
+            <li><a href="#demo" data-i18n="footer.links.demo">Demonstrație</a></li>
+            <li><a href="#preturi" data-i18n="footer.links.pricing">Prețuri</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4 data-i18n="footer.company">Companie</h4>
+          <ul>
+            <li><a href="#" data-i18n="footer.links.about">Despre</a></li>
+            <li><a href="#" data-i18n="footer.links.blog">Blog</a></li>
+            <li><a href="#" data-i18n="footer.links.careers">Cariere</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4 data-i18n="footer.contact">Contact</h4>
+          <ul>
+            <li><a href="tel:+37360833229">060 833 229</a></li>
+            <li><a href="mailto:meroowiiwii@gmail.com">meroowiiwii@gmail.com</a></li>
+            <li><span style="color:var(--muted);font-size:.84rem">str. Decebal 6, Chișinău</span></li>
+            <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span data-i18n="footer.copy">© 2026 AI Analyst</span>
+        <span><a href="privacy.html" data-i18n="footer.privacy">Confidențialitate</a> · <a href="terms.html" data-i18n="footer.terms">Termeni</a></span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Checkout / plată card -->
+  <div class="modal checkout-modal" id="checkoutModal" role="dialog" aria-modal="true">
+    <div class="modal-box checkout-box">
+      <button type="button" class="modal-close" id="checkoutClose" aria-label="Close">×</button>
+
+      <div class="checkout-step" data-step="form">
+        <h2 id="checkoutTitle" data-i18n="checkout.title">Finalizare comandă</h2>
+        <p class="sub" data-i18n="checkout.subtitle">Plată securizată cu cardul</p>
+        <p class="form-error" id="checkoutError" hidden></p>
+
+        <div class="checkout-summary">
+          <div><span data-i18n="checkout.plan">Abonament</span>: <strong id="checkoutPlanName">Pro</strong></div>
+          <div class="price-breakdown">
+            <span data-i18n="checkout.subtotal">Subtotal</span>: <span id="checkoutSubtotal">799 MDL</span>
+          </div>
+          <div class="price-breakdown" id="checkoutVatRow">
+            <span data-i18n="checkout.vat">TVA (20%)</span>: <span id="checkoutVat">160 MDL</span>
+          </div>
+          <div class="checkout-total">
+            <span data-i18n="checkout.totalToday">Total de plată azi</span>:
+            <strong id="checkoutTotal">959 MDL</strong>
+            <span class="per-month-note" data-i18n="checkout.perMonth">/lună</span>
+          </div>
+          <span id="checkoutPlanPrice" hidden>959 MDL</span>
+        </div>
+
+        <form id="checkoutForm">
+          <h3 class="checkout-h3" data-i18n="checkout.billingTitle">Date facturare</h3>
+          <div class="form-row">
+            <div class="form-group"><label for="chkName" data-i18n="checkout.fullName">Nume</label><input id="chkName" required autocomplete="name"></div>
+            <div class="form-group"><label for="chkEmail" data-i18n="checkout.email">Email</label><input type="email" id="chkEmail" required autocomplete="email"></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label for="chkPhone" data-i18n="checkout.phone">Telefon</label><input type="tel" id="chkPhone" required placeholder="060 833 229" autocomplete="tel"></div>
+            <div class="form-group"><label for="chkCompany" data-i18n="checkout.company">Companie</label><input id="chkCompany" autocomplete="organization"></div>
+          </div>
+
+          <div id="checkoutCardBlock">
+            <h3 class="checkout-h3" data-i18n="checkout.cardTitle">Card bancar</h3>
+            <div class="card-brands">
+              <span data-i18n="checkout.cardAccepted">Acceptăm</span>
+              <span class="card-brand-icon visa active" data-brand="visa">VISA</span>
+              <span class="card-brand-icon mastercard" data-brand="mastercard">MC</span>
+              <span class="card-brand-icon maestro" data-brand="maestro">Maestro</span>
+            </div>
+            <div class="pci-box">
+              <strong data-i18n="checkout.pciTitle">Plată securizată</strong>
+              <p data-i18n="checkout.pciText">SSL · 3D Secure</p>
+            </div>
+            <div class="form-group">
+              <label for="chkCard" data-i18n="checkout.cardNumber">Număr card</label>
+              <input id="chkCard" inputmode="numeric" autocomplete="cc-number" placeholder="4111 1111 1111 1111" required>
+            </div>
+            <div class="form-row form-row-3">
+              <div class="form-group"><label for="chkExpiry" data-i18n="checkout.cardExpiry">Expiră</label><input id="chkExpiry" inputmode="numeric" autocomplete="cc-exp" placeholder="12/28" required></div>
+              <div class="form-group"><label for="chkCvv" data-i18n="checkout.cardCvv">CVV</label><input id="chkCvv" inputmode="numeric" autocomplete="cc-csc" placeholder="123" required></div>
+              <div class="form-group form-span-2"><label for="chkCardName" data-i18n="checkout.cardName">Titular</label><input id="chkCardName" autocomplete="cc-name" required></div>
+            </div>
+          </div>
+
+          <h3 class="checkout-h3" data-i18n="checkout.addressTitle">Adresă</h3>
+          <div class="form-row">
+            <div class="form-group"><label for="chkCountry" data-i18n="checkout.country">Țară</label><input id="chkCountry" value="Moldova" required></div>
+            <div class="form-group"><label for="chkCity" data-i18n="checkout.city">Oraș</label><input id="chkCity" value="Chișinău" required></div>
+          </div>
+          <div class="form-group"><label for="chkAddress" data-i18n="checkout.address">Adresă</label><input id="chkAddress" value="str. Decebal 6" required></div>
+
+          <label class="terms-check"><input type="checkbox" id="chkAutoRenew"> <span data-i18n="checkout.autoRenew">Reînnoire automată</span></label>
+          <label class="terms-check"><input type="checkbox" id="chkInvoice"> <span data-i18n="checkout.invoice">Factură fiscală</span></label>
+          <div class="form-group" id="chkIdnoRow" hidden>
+            <label for="chkIdno" data-i18n="checkout.idno">IDNO</label>
+            <input id="chkIdno" placeholder="1234567890123">
+          </div>
+          <label class="terms-check"><input type="checkbox" id="chkTerms" required> <span data-i18n="checkout.terms">Accept <a href="terms.html" target="_blank">termenii</a> și <a href="privacy.html" target="_blank">confidențialitatea</a></span></label>
+
+          <button type="submit" class="btn-primary checkout-pay-btn" id="checkoutPayBtn" data-i18n="checkout.pay">Plătește acum</button>
+        </form>
+      </div>
+
+      <div class="checkout-step" data-step="processing" hidden>
+        <div class="checkout-loader"></div>
+        <p id="checkoutProcessingText" data-i18n="checkout.processing">Procesăm plata...</p>
+      </div>
+
+      <div class="checkout-step" data-step="3ds" hidden>
+        <h2 data-i18n="checkout.threeDsTitle">3D Secure</h2>
+        <p class="sub" data-i18n="checkout.threeDsHint">Cod SMS</p>
+        <div class="form-group"><label for="chk3dsCode" data-i18n="checkout.threeDsCode">Cod</label><input id="chk3dsCode" inputmode="numeric" maxlength="8" placeholder="123456"></div>
+        <button type="button" class="btn-primary" id="checkout3dsBtn" style="width:100%" data-i18n="checkout.threeDsConfirm">Confirmă</button>
+      </div>
+
+      <div class="checkout-step" data-step="failed" hidden>
+        <div class="checkout-fail-icon">✕</div>
+        <h2 data-i18n="checkout.failedTitle">Plată eșuată</h2>
+        <p id="checkoutFailedMsg" style="color:var(--muted);margin:1rem 0"></p>
+        <button type="button" class="btn-primary" id="checkoutRetryBtn" style="width:100%" data-i18n="checkout.retry">Încearcă din nou</button>
+      </div>
+
+      <div class="checkout-step" data-step="success" hidden>
+        <div class="checkout-success-icon">✓</div>
+        <h2 data-i18n="checkout.successTitle">Plată reușită!</h2>
+        <p id="checkoutSuccessPlan"></p>
+        <p class="order-id"><span data-i18n="checkout.successOrder">Comandă</span>: <strong id="checkoutOrderId"></strong></p>
+        <p class="order-id"><span data-i18n="checkout.transactionId">Tranzacție</span>: <strong id="checkoutTransactionId"></strong></p>
+        <button type="button" class="btn-primary" id="checkoutDoneBtn" style="width:100%;margin-top:1rem" data-i18n="checkout.close">Închide</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lead form modal -->
+  <div class="modal" id="leadModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-box" style="position:relative">
+      <button type="button" class="modal-close" id="closeModal" aria-label="Close">×</button>
+      <h2 id="modalTitle" data-i18n="form.title">Solicită o demonstrație</h2>
+      <p class="sub" data-i18n="form.sub">Completează formularul...</p>
+      <p class="form-error" id="formError" hidden></p>
+      <p class="form-success" id="formSuccess" hidden data-i18n="form.success">Mulțumim!</p>
+      <form id="leadForm">
+        <div class="form-group">
+          <label for="fName" data-i18n="form.name">Nume</label>
+          <input type="text" id="fName" name="name" required autocomplete="name">
+        </div>
+        <div class="form-group">
+          <label for="fEmail" data-i18n="form.email">Email</label>
+          <input type="email" id="fEmail" name="email" required autocomplete="email">
+        </div>
+        <div class="form-group">
+          <label for="fCompany" data-i18n="form.company">Companie</label>
+          <input type="text" id="fCompany" name="company" autocomplete="organization">
+        </div>
+        <div class="form-group">
+          <label for="fMessage" data-i18n="form.message">Mesaj</label>
+          <textarea id="fMessage" name="message"></textarea>
+        </div>
+        <button type="submit" class="btn-primary" style="width:100%" data-i18n="form.submit">Trimite</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- AI Chat Assistant -->
+  <button type="button" class="chat-fab" id="chatFab" aria-label="Open chat">
+    <span class="chat-fab-icon">💬</span>
+  </button>
+  <div class="chat-panel" id="chatPanel" aria-hidden="true">
+    <div class="chat-header">
+      <div>
+        <strong data-i18n="chat.title">Claude · AI Analyst</strong>
+        <p data-i18n="chat.subtitle">Powered by Claude</p>
+      </div>
+      <button type="button" class="chat-close" id="chatClose" aria-label="Close">×</button>
+    </div>
+    <div class="chat-messages" id="chatMessages"></div>
+    <form class="chat-form" id="chatForm">
+      <input type="text" id="chatInput" autocomplete="off" data-i18n-placeholder="chat.placeholder" placeholder="Scrie mesajul tău...">
+      <button type="submit" class="chat-send" data-i18n="chat.send">Trimite</button>
+    </form>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/payment-config.js"></script>
+  <script src="js/payment-gateway.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="js/checkout.js"></script>
+  <script src="js/chat.js"></script>
+  <script src="js/voice.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
