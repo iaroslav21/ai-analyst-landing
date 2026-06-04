@@ -1,0 +1,1 @@
+# Fara dependente externe — doar biblioteca standard Python 3
